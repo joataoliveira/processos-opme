@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports:[TypeOrmModule.forFeature([Carteira])],
   controllers: [CarteirasController],
-  providers: [CarteirasService]
+  providers: [CarteirasService],
+  exports:[CarteirasService] // Add
 })
 export class CarteirasModule {}

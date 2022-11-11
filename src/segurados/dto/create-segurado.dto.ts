@@ -10,7 +10,7 @@ export class CreateSeguradoDto {
     @IsString({message:"Deve ser String"})
     nomeSegurado: String;
     
-    @IsDate({message:"Data invalida"})
+    @IsDate({message:"Data nascimento invalida"})
     @IsNotEmpty()
     @Type(() => Date)
     //@IsISO8601()
@@ -20,6 +20,4 @@ export class CreateSeguradoDto {
     //@IsDefined()
     //@IsNotEmpty()
     carteira: Carteira;
-
-
 }

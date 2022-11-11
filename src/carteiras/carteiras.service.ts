@@ -40,6 +40,12 @@ export class CarteirasService {
 
   async remove(id: number) {
     await this.repository.softDelete({id}); 
-    
+  }
+
+  async findCarteira(carteira: String ) {
+    return await this.repository
+    .createQueryBuilder("carteira")
+    .where("carteira.carteira = :carteira",{carteira:carteira})
+    .getOne();
   }
 }
