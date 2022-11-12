@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ClassSerializerInterceptor, UseInterceptors, UseGuards } from '@nestjs/common';
 import { SeguradosService } from './segurados.service';
 import { CreateSeguradoDto } from './dto/create-segurado.dto';
 import { UpdateSeguradoDto } from './dto/update-segurado.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guards';
 
 @Controller('segurados')
 @UseInterceptors(ClassSerializerInterceptor)

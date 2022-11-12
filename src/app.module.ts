@@ -10,6 +10,10 @@ import { Segurado } from './segurados/entities/segurado.entity';
 import { Processo } from './processos/entities/processo.entity';
 import { Carteira } from './carteiras/entities/carteira.entity';
 import { Iten } from './itens/entities/iten.entity';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { JwtAuthGuard } from './auth/jwt-auth.guards';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -21,8 +25,13 @@ import { Iten } from './itens/entities/iten.entity';
     database: 'OPME',
     entities: [Segurado,Processo,Carteira,Iten],
     synchronize: true,
-  }),ProcessosModule, ItensModule, SeguradosModule, CarteirasModule],
+  }),ProcessosModule, ItensModule, SeguradosModule, CarteirasModule, AuthModule, UsersModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,  
+              {
+                provide: APP_GUARD,
+                useClass: JwtAuthGuard,
+              }
+              ],
 })
 export class AppModule {}
