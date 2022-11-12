@@ -11,7 +11,7 @@ export class SeguradosService {
   constructor(@InjectRepository(Segurado) private repository:Repository<Segurado>){}
   
   @Inject(CarteirasService)
-  private readonly carteiraService: CarteirasService; ///**** */
+  private readonly carteiraService: CarteirasService;
   
   async create(createSeguradoDto: CreateSeguradoDto) {
     let dado = await this.repository.save(createSeguradoDto);
@@ -24,6 +24,7 @@ export class SeguradosService {
 
   async findOne(id: number){
     const dado = await this.repository.find({relations:{carteira:true},where:{id}});
+    //const dado = await this.repository.find({where:{id}});
 
     if (!dado){
         throw Error(`Mensagem com ID '${id}' não localizada`)

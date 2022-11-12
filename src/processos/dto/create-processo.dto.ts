@@ -1,4 +1,4 @@
-import {IsAlpha, IsDate, IsDateString, IsDefined, IsISO8601, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsPositive, IsString, Length, length, max, ValidateNested } from 'class-validator'
+import {IsAlpha, IsDate, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsPositive, IsString, Length, length, max, ValidateNested } from 'class-validator'
 import { Iten } from 'src/itens/entities/iten.entity';
 import { Type } from 'class-transformer';
 import { Segurado } from "src/segurados/entities/segurado.entity";
@@ -15,15 +15,17 @@ export class CreateProcessoDto {
     dataProcesso?: Date;
 
     @IsNumber({allowNaN:false},{message:"Somente Numero"})
+    @IsNotEmpty({message:"CM Processo obrigatório"})
     @IsPositive()
     crmMedico :number;
     
     @IsNumber({allowNaN:false},{message:"Somente Numero"})
+    @IsNotEmpty({message:"Hospital Processo obrigatório"})
     @IsPositive()
     seqHospital :number;
 
     @ValidateNested({message:"Tipo informado errado"})
-    //@IsNotEmpty({message:"Itens obrigatório"})
+    @IsNotEmpty({message:"Itens obrigatório"})
     itens :Iten[];
 
 

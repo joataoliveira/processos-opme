@@ -8,6 +8,7 @@ import { CarteirasModule } from 'src/carteiras/carteiras.module';
 @Module({
   imports : [TypeOrmModule.forFeature([Segurado]), CarteirasModule], 
   controllers: [SeguradosController],
-  providers: [SeguradosService]
+  providers: [SeguradosService],
+  exports:[SeguradosService] //add
 })
 export class SeguradosModule {}

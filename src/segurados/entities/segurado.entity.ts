@@ -8,7 +8,7 @@ export class Segurado extends AbstractEntity {
     @Column()
     nomeSegurado: String;
 
-    @Column()
+    @Column('timestamp')
     dataNascimento?: Date;
 
     @OneToOne(() => Carteira,(carteira)=>carteira.segurado, {cascade: ["insert", "update","soft-remove"]})
