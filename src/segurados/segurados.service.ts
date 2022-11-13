@@ -27,7 +27,7 @@ export class SeguradosService {
     //const dado = await this.repository.find({where:{id}});
 
     if (!dado){
-        throw Error(`Mensagem com ID '${id}' não localizada`)
+        throw Error(`Segurado com ID '${id}' não localizado`)
     }
     return dado;
   }
@@ -35,7 +35,7 @@ export class SeguradosService {
   async update(id: number, updateSeguradoDto: UpdateSeguradoDto) {
     const dado = await this.repository.findOneByOrFail({id});
     if (!dado) {
-     throw Error(`Mensagem com ID '${id}' não localizada`)
+     throw Error(`Segurado com ID '${id}' não localizado`)
     }
 
     let segurado = await this.repository.create(updateSeguradoDto);

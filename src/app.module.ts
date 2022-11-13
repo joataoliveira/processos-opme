@@ -14,16 +14,18 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guards';
 import { APP_GUARD } from '@nestjs/core';
+import { conectionVariables } from './auth/constants';
+import { Users } from './users/entities/users.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: 'masterkey',
-    database: 'OPME',
-    entities: [Segurado,Processo,Carteira,Iten],
+    host: conectionVariables.DATABASE_HOST,
+    port: conectionVariables.DATABASE_PORT,
+    username: conectionVariables.DATABASE_USER,
+    password: conectionVariables.DATABASE_PASSWORD,
+    database: conectionVariables.DATABASE_NAME,
+    entities: [Segurado,Processo,Carteira,Iten, Users],
     synchronize: true,
   }),ProcessosModule, ItensModule, SeguradosModule, CarteirasModule, AuthModule, UsersModule],
   controllers: [AppController],
