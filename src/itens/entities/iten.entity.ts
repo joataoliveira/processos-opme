@@ -1,13 +1,19 @@
 import { AbstractEntity } from "src/generic/entities/abstract-entity";
 import { Processo } from "src/processos/entities/processo.entity";
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, Index, JoinTable, ManyToOne } from "typeorm";
 
 @Entity()
 export class Iten extends AbstractEntity {
 
     @Column()
-    codMatMEd: number;
+    //@Index({ unique: true })
+    @Index()
+    codMatMed: number;
+
+    @Column()
+    descricao: string;
+
     
-    @ManyToOne(()=> Processo, (processo)=>processo.itens)
-    processo: Processo;
+   // @ManyToOne(()=> Processo, (processo)=>processo.itens)
+   // processo: Processo[];
 }
