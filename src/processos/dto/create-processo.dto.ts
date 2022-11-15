@@ -28,5 +28,4 @@ export class CreateProcessoDto {
     @IsNotEmpty({message:"Itens obrigatório"})
     itens :Iten[];
 
-
 }

@@ -1,26 +1,49 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateItenDto } from './dto/create-iten.dto';
 import { UpdateItenDto } from './dto/update-iten.dto';
+import { Iten } from './entities/iten.entity';
 
 @Injectable()
 export class ItensService {
-  create(createItenDto: CreateItenDto) {
-    return 'This action adds a new iten';
+  constructor(@InjectRepository(Iten) private repository:Repository<Iten>){}
+
+  async create(createItenDto: CreateItenDto) {
+    let dado = await this.repository.save(createItenDto);
+    return this.findOne((await dado).id)
   }
 
-  findAll() {
-    return `This action returns all itens`;
+  async findAll() {
+    return await this.repository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} iten`;
+  async findOne(id: number) {
+    const dado = await this.repository.findOneByOrFail( {id} );
+    if (!dado){
+        throw Error(`Mensagem com ID '${id}' não localizada`)
+    }
+    return dado;
   }
 
-  update(id: number, updateItenDto: UpdateItenDto) {
-    return `This action updates a #${id} iten`;
+  async update(id: number, updateItenDto: UpdateItenDto) {
+   const dado = await this.repository.findOneByOrFail({id});
+    if (!dado) {
+     throw Error(`Mensagem com ID '${id}' não localizada`)
+    }
+    return await this.repository.findOneByOrFail({id})
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} iten`;
+  async remove(id: number) {
+    await this.repository.softDelete({id}); 
   }
+
+  async findCodigo(codigo: number){
+    return await this.repository
+    .createQueryBuilder("iten")
+    .where("iten.codMatMed = :x",{x:codigo})
+    .getOne();
+  }
+
+
 }

@@ -5,7 +5,9 @@ import { Iten } from './entities/iten.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
+  imports:[TypeOrmModule.forFeature([Iten])],
   controllers: [ItensController],
-  providers: [ItensService]
+  providers: [ItensService],
+  exports:[ItensService] //add
 })
 export class ItensModule {}
